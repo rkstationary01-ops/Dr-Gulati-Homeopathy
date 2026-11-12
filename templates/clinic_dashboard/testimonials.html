@@ -1,0 +1,45 @@
+{% extends 'clinic_dashboard/base.html' %}
+{% block title %}Testimonials{% endblock %}
+{% block content %}
+<div class="page-heading">
+    <div>
+        <p class="eyebrow">WEBSITE CONTENT</p>
+        <h1>Testimonials</h1>
+        <p class="muted">Only publish genuine reviews with patient consent.</p>
+    </div>
+    <a class="btn" href="{% url 'clinic_dashboard:testimonial_add' %}">＋ Add testimonial</a>
+</div><section class="panel">
+    <div class="table-wrap">
+        <table>
+            <thead>
+            <tr>
+                <th>Patient</th>
+                <th>Review</th>
+                <th>Rating</th>
+                <th>Published</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+            <tbody>
+                {% for t in testimonials %}
+                <tr>
+                    <td><strong>{{ t.patient_name }}</strong></td>
+                    <td>{{ t.quote|truncatechars:100 }}</td>
+                    <td>{{ t.rating }}/5</td>
+                    <td>{{ t.is_published|yesno:'Yes,No' }}</td>
+                    <td class="actions"><a class="btn btn-small" href="{% url 'clinic_dashboard:testimonial_edit' t.pk %}">Edit</a>
+                        <form method="post" action="{% url 'clinic_dashboard:testimonial_delete' t.pk %}" data-confirm="Delete this testimonial?">{% csrf_token %}
+                            <button class="btn btn-small btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" class="empty">No testimonials yet.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+{% endblock %}

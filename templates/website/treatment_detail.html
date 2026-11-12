@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}
+{{ treatment.title }} | Consultation
+{% endblock %}
+{% block content %}
+<section class="page-hero">
+    <div class="container">
+        <p class="eyebrow"><a href="{% url 'treatments' %}">TREATMENTS</a> / CONSULTATION AREA</p>
+        <h1>{{ treatment.title }}</h1>
+        <p>{{ treatment.short_description }}</p>
+    </div>
+</section>
+
+<section class="container narrow prose section">
+    
+    <h2>About this consultation area</h2>
+    {% if treatment.description %}
+    <p>{{ treatment.description|linebreaks }}</p>
+    {% else %}
+    <p>Use this page to provide accurate, doctor-reviewed information about this consultation area, the assessment process and when a patient should seek urgent medical care.</p>
+    {% endif %}
+    <div class="notice">This page provides general information only. It does not promise a cure or replace advice from a qualified medical professional.</div>
+    <a class="btn btn-primary" href="{% url 'book_appointment' %}">Request an Appointment</a>
+</section>
+{% endblock %}

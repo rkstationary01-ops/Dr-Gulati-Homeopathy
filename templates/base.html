@@ -1,0 +1,74 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Consult Dr. Aashish Gulati for personalised homeopathic consultations. Book an appointment online.">
+  <title>{% block title %}Dr. Aashish Gulati | Homeopathy Clinic{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  {% block extra_head %}{% endblock %}
+</head>
+<body>
+<header class="site-header">
+  <div class="container nav-wrap">
+    <a class="brand" href="{% url 'home' %}"><img src="{% static 'images/brand-lockup.jpg' %}" alt="Dr. Aashish Gulati Homeopathy Clinic"></a>
+      <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+      <nav class="main-nav">
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'about' %}">About Dr.</a>
+        <a href="{% url 'book_appointment' %}">Book Appointment</a>
+        <a href="{% url 'contact' %}">Contact</a>
+        <a href="{% url 'privacy_policy' %}">Privacy Policy</a>
+      </nav>
+    <a class="phone-pill" href="tel:+919876543210">☎ <span>+91 9893755820</span></a>
+  </div>
+</header>
+<main>
+  {% if messages %}
+  <div class="container message-stack">
+    {% for message in messages %}
+    <div class="notice success">
+      {{ message }}
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+  {% block content %} {% endblock %}
+</main>
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <!-- <a class="brand footer-brand" href="{% url 'home' %}">
+        <img src="{% static 'images/brand-lockup.jpg' %}" alt="Dr. Aashish Gulati Homeopathy Clinic">
+      </a>
+      <p>Personalised consultations in a calm, welcoming clinic environment.</p> -->
+      <h3>Pages</h3>
+      <a href="{% url 'home' %}"> Home </a>
+      <a href="{% url 'about' %}">About Dr</a>
+      <a href="{% url 'contact' %}">Contact</a>
+      <a href="{% url 'privacy_policy' %}">Privacy Policy</a>
+    </div>
+    <div>
+      <h3>Explore</h3>
+      <a href="{% url 'about' %}">About the Doctor</a>
+      <a href="{% url 'treatments' %}">Treatments</a>
+      <a href="{% url 'testimonials' %}">Patient Stories</a>
+    </div>
+    <div>
+      <h3>Appointments</h3>
+      <a href="{% url 'book_appointment' %}">Book an Appointment</a>
+      <a href="{% url 'check_appointment' %}">Check Appointment</a>
+      <a href="{% url 'contact' %}">Contact Clinic</a>
+    </div>
+    <div>
+      <h3>Contact</h3>
+      <a href="tel:+919876543210">+91 9893755820</a>
+      <p>Clinic address: Opposite Chirayu Hospital, Sheela Chadhary Road, Kota.</p>
+    </div>
+  </div>
+  <div class="container copyright">© {% now "Y" %} Dr. Aashish Gulati Homeopathy Clinic. All rights reserved.</div>
+</footer>
+<script src="{% static 'js/main.js' %}"></script>{% block extra_js %}{% endblock %}
+</body></html>

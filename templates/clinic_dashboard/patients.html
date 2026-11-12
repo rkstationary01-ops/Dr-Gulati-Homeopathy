@@ -1,0 +1,45 @@
+{% extends 'clinic_dashboard/base.html' %}
+{% block title %}Patients{% endblock %}
+{% block content %}
+<div class="page-heading">
+    <div>
+        <p class="eyebrow">PATIENT DIRECTORY</p>
+        <h1>Patients</h1>
+        <p class="muted">Patient contacts derived from existing appointment records.</p>
+    </div>
+</div>
+<form class="filter-bar" method="get">
+    <input name="q" value="{{ q }}" placeholder="Search patient name, phone or email">
+    <button class="btn">Search</button>
+</form>
+<section class="panel">
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>Patient</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th>Total bookings</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for p in patients %}
+                <tr>
+                    <td>
+                        <strong>{{ p.patient_name }}</strong>
+                    </td>
+                    <td>{{ p.phone }}</td>
+                    <td>{{ p.email|default:'—' }}</td>
+                    <td>{{ p.total_bookings }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4" class="empty">No patient records found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+{% endblock %}

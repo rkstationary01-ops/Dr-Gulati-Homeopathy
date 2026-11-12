@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Book an Appointment{% endblock %}
+{% block content %}
+<section class="page-hero">
+    <div class="container">
+        <p class="eyebrow">ONLINE APPOINTMENT</p>
+        <h1>Book Your Appointment</h1>
+        <p>Submit your preferred date and time. The clinic will confirm your appointment.</p>
+    </div>
+</section>
+<section class="container booking-layout section">
+    <div class="booking-main">
+        <form method="post" class="form-card" id="appointment-form">
+            {% csrf_token %}
+            <h2>Patient details</h2>
+            <p class="muted">Fields marked * are required.</p>
+{% if form.non_field_errors %}
+<div class="notice error">
+    {{ form.non_field_errors }}
+</div>
+{% endif %}
+
+<div class="form-grid">
+    <div class="field">
+        <label for="id_patient_name">Full name *</label>
+        {{ form.patient_name }}{{ form.patient_name.errors }}
+    </div>
+        <div class="field">
+            <label for="id_phone">Mobile number *</label>
+            {{ form.phone }}{{ form.phone.errors }}
+        </div>
+        <div class="field">
+            <label for="id_email">Email address</label>
+            {{ form.email }}{{ form.email.errors }}
+        </div>
+            <div class="field">
+                <label for="id_treatment">Consultation area</label>
+                {{ form.treatment }}{{ form.treatment.errors }}
+            </div><div class="field">
+                <label for="id_appointment_date">Preferred date *</label>
+                {{ form.appointment_date }}{{ form.appointment_date.errors }}
+            </div>
+            <div class="field">
+                <label for="id_appointment_time">Available time *</label>
+                {{ form.appointment_time }}{{ form.appointment_time.errors }}
+                <small id="slot-help">Choose a date to load available times.</small>
+            </div>
+            <div class="field full">
+                <label for="id_reason">Reason for visit (optional)</label>
+                {{ form.reason }}{{ form.reason.errors }}
+            </div>
+        </div>
+<label class="consent">
+    <input type="checkbox" name="consent" required> I agree that the clinic may contact me about this appointment request.</label>
+    <button class="btn btn-primary btn-wide" type="submit">Submit Appointment Request →</button>
+    <p class="form-footnote">Submitting this form sends an appointment request; it is not a confirmed booking until the clinic confirms it.</p>
+</form>
+</div>
+<aside class="booking-aside">
+    <div class="aside-card">
+        <span class="aside-icon">▦</span>
+        <h3>Appointment information</h3>
+        <ul>
+            <li>Choose a date and an available time.</li>
+            <li>One appointment can be booked per time slot.</li>
+            <li>Sunday is currently set as a clinic closed day.</li>
+            <li>The clinic will contact you to confirm.</li>
+        </ul>
+    </div>
+    <div class="aside-card green-card">
+        <h3>Need help?</h3>
+        <p>Call the clinic if you need assistance with your booking.</p>
+        <a href="tel:+919876543210">☎ +91 98765 43210</a>
+    </div>
+</aside>
+</section>
+{% endblock %}{% block extra_js %}
+<script src="{% static 'js/booking.js' %}">
+    
+</script>{% endblock %}

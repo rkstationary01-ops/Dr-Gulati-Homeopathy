@@ -1,0 +1,99 @@
+{% extends 'base.html' %}{% load static %}{% block title %}Home | Dr. Aashish Gulati Homeopathy Clinic{% endblock %}
+{% block content %}
+<section class="hero">
+    <div class="hero-overlay">
+        <div class="container hero-content">
+            <div class="hero-copy">
+                <div class="eyebrow">🌿 Homeopathy&nbsp; • &nbsp;Safe&nbsp; • &nbsp;Natural&nbsp; • &nbsp;Personalised</div>
+                <h1>Holistic Healing with <em>Homeopathy</em></h1>
+                <p>Consult Dr. Aashish Gulati for personalised homeopathic care and guidance focused on your individual wellness needs.</p>
+                <div class="button-row">
+                    <a class="btn btn-primary" href="{% url 'book_appointment' %}">▦ &nbsp;Book Appointment</a>
+                    <a class="btn btn-outline" href="{% url 'check_appointment' %}">◉ &nbsp;Booking Status</a>
+                </div>
+                <div class="benefits">
+                    <span>🌱 <b>Natural<br>&amp; Safe</b></span>
+                    <span>♧ <b>Individual<br>Care</b></span>
+                    <span>♙ <b>Personalised<br>Consultation</b></span>
+                    <span>↻ <b>Long-term<br>Wellness</b></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="quick-book">
+    <div class="quick-book-intro">
+        <span class="calendar-icon">▦</span>
+        <div>
+            <h2>Book Your<br>Appointment</h2>
+            <p>Choose a convenient date and request your consultation.</p>
+        </div>
+    </div>
+    <div class="devider"></div>
+    <div style="text-align: end;">
+            <a class="btn btn-primary" href="{% url 'book_appointment' %}">▦ &nbsp;Book Now</a><br>
+            <small>Online booking • Appointment subject to clinic confirmation</small>
+        </div>
+    </section>
+<section class="section container">
+    <div class="section-heading">
+        <span>
+
+        </span>
+        <h2>Our Treatment Areas</h2>
+        <span>
+
+        </span>
+    </div>
+    <div class="treatment-grid">
+        {% for item in treatments %}
+        <a class="treatment-card" href="{% url 'treatment_detail' item.slug %}">
+            <span class="treatment-icon">{{ item.icon }}</span>
+            <strong>{{ item.title }}</strong>
+            <small>{{ item.short_description }}</small>
+        </a>
+        {% empty %}
+        <a class="treatment-card" href="{% url 'treatments' %}">
+            <span class="treatment-icon">✚</span>
+            <strong>Explore Treatments</strong>
+            <small>View consultation areas</small>
+        </a>
+        {% endfor %}
+    </div>
+    <div class="center-action">
+        <a class="text-link" href="{% url 'treatments' %}">View all treatment areas →</a>
+    </div>
+</section>
+<section class="soft-section"><div class="container">
+    <div class="section-heading">
+        <span></span>
+        <h2>Our Happy Patients</h2>
+        <span></span>
+    </div>
+    <div class="testimonial-grid">
+        {% for item in testimonials %}
+        <article class="testimonial-card">
+            <div class="patient-head">
+                <div class="avatar">{{ item.patient_name|first|upper }}</div>
+                <div>
+                    <h3>{{ item.patient_name }}</h3>
+                    <div class="stars">{% for i in "12345"|make_list %}{% if forloop.counter <= item.rating %}★{% endif %}{% endfor %}
+                    </div>
+                </div>
+            </div>
+            <p>“{{ item.quote }}”</p>
+        </article>
+        {% empty %}
+        <article class="testimonial-card">
+            <h3>Patient feedback</h3>
+            <p>Patient testimonials can be added and approved from the Django Admin dashboard.</p>
+        </article>
+        {% endfor %}
+    </div>
+    <div class="center-action">
+        <a class="text-link" href="{% url 'testimonials' %}">Read patient stories →</a>
+    </div>
+</div>
+</section>
+
+{% endblock %}
